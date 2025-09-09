@@ -3,7 +3,7 @@ package com.cafe.cafetdd.unit.Beverage;
 public class Americano implements Beverage{
     @Override
     public String getName() {
-        return "Americano";
+        return "아메리카노";
     }
 
     @Override

@@ -2,7 +2,10 @@ package com.cafe.cafetdd.unit;
 
 import com.cafe.cafetdd.unit.Beverage.Americano;
 import com.cafe.cafetdd.unit.Beverage.Latte;
+import com.cafe.cafetdd.unit.order.Order;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,7 +21,6 @@ public class CafeKioskTest {
         System.out.println(">>> 담긴 음료 수 : " + cafeKiosk.getBeverages().size());
         System.out.println(">>> 담긴 음료 : " + cafeKiosk.getBeverages().get(0).getName());
     }
-
 
     @Test
     void add() {
@@ -52,7 +54,6 @@ public class CafeKioskTest {
 
     }
 
-
     @Test
     void remove() {
         CafeKiosk cafeKiosk = new CafeKiosk();
@@ -77,5 +78,44 @@ public class CafeKioskTest {
 
         cafeKiosk.clear();
         assertThat(cafeKiosk.getBeverages()).isEmpty();
+    }
+
+    @Test
+    void createOrder() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+
+        cafeKiosk.add(americano);
+
+        Order order = cafeKiosk.createOrder();
+
+        assertThat(order.getBeverage()).hasSize(1);
+        assertThat(order.getBeverage().get(0).getName()).isEqualTo("아메리카노");
+    }
+
+    @Test
+    void createOrderCurrentTime() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+
+        cafeKiosk.add(americano);
+
+        Order order = cafeKiosk.createOrder(LocalDateTime.of(2025, 9, 9, 10, 0));
+
+        assertThat(order.getBeverage()).hasSize(1);
+        assertThat(order.getBeverage().get(0).getName()).isEqualTo("아메리카노");
+    }
+
+    @Test
+    void createOrderOutsideOpenTime() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+
+        cafeKiosk.add(americano);
+
+        assertThatThrownBy(() -> cafeKiosk.createOrder(LocalDateTime.of(2025, 9, 9, 9, 0)))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("주문 시간이 아닙니다. 관리자에게 문의하세요.");
+
     }
 }
