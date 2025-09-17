@@ -3,6 +3,7 @@ package com.cafe.cafetdd.unit;
 import com.cafe.cafetdd.unit.Beverage.Americano;
 import com.cafe.cafetdd.unit.Beverage.Latte;
 import com.cafe.cafetdd.unit.order.Order;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -23,12 +24,15 @@ public class CafeKioskTest {
     }
 
     @Test
+//    @DisplayName("음료 1개 추가 테스트")
+    @DisplayName("음료 1개를 추가하면 주문 목록에 담긴다.")
+    //    void 음료_1개_추가_테스트() {
     void add() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         cafeKiosk.add(new Americano());
 
         assertThat(cafeKiosk.getBeverages()).hasSize(1);
-        assertThat(cafeKiosk.getBeverages().get(0).getName()).isEqualTo("Americano");
+        assertThat(cafeKiosk.getBeverages().get(0).getName()).isEqualTo("아메리카노");
     }
 
     @Test
