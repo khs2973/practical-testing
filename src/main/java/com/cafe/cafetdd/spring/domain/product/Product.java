@@ -3,6 +3,7 @@ package com.cafe.cafetdd.spring.domain.product;
 import com.cafe.cafetdd.spring.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,4 +28,13 @@ public class Product extends BaseEntity {
 
     private int price;
 
+    @Builder
+    public Product(Long id, String productNumber, ProductType type, ProductSellingStatus sellingStatus, int price, String name) {
+        this.id = id;
+        this.productNumber = productNumber;
+        this.type = type;
+        this.sellingStatus = sellingStatus;
+        this.price = price;
+        this.name = name;
+    }
 }

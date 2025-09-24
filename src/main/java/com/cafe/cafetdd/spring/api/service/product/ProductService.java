@@ -2,8 +2,8 @@ package com.cafe.cafetdd.spring.api.service.product;
 
 import com.cafe.cafetdd.spring.api.service.product.response.ProductResponse;
 import com.cafe.cafetdd.spring.domain.product.Product;
+import com.cafe.cafetdd.spring.domain.product.ProductRepository;
 import com.cafe.cafetdd.spring.domain.product.ProductSellingStatus;
-import com.cafe.cafetdd.spring.domain.product.productRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class ProductService {
 
-    private final productRepository productRepository;
+    private final ProductRepository productRepository;
 
     public List<ProductResponse> getSellingProducts() {
         List<Product> products = productRepository.findAllBySellingStatusIn(ProductSellingStatus.forDisplay());
